@@ -1,6 +1,34 @@
 <template>
-  <div class="container mt-3">
-    <router-view/>
+  <div>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Movies APP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link active" href="#">List Movies</a>
+            <a class="nav-link active" href="#">About</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Header -->
+    <div class="container mt-3">
+      <router-view/>
+    </div>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-light text-muted mt-3">
+      <div class="text-center p-4" style="background-color: gainsboro;">
+        © 2021 Copyright -
+        <a class="text-reset fw-bold text-decoration-none" target="_blank" href="https://twitter.com/greglim81">Greg Lim</a> -
+        <a class="text-reset fw-bold text-decoration-none" target="_blank" href="https://twitter.com/danielgarax">Daniel Correa</a>
+      </div>
+    </footer>
+    <!-- Footer -->
   </div>
 </template>
 
