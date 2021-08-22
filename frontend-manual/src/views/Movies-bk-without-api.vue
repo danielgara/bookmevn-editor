@@ -30,7 +30,7 @@
             <img v-if="movie.poster" class="card-img-top" :src="movie.poster" />
             <div class="card-body">
               <h5 class="card-title fw-bold">{{ movie.title }}</h5>
-              <p v-if="movie.rated" class="card-text">Rating: {{ movie.rated }}</p>
+              <p class="card-text">Rating: {{ movie.rated }}</p>
               <p class="card-text">{{ movie.plot }}</p>
               <a class="btn btn-primary">View Reviews</a>
             </div>
@@ -43,29 +43,42 @@
 </template>
 
 <script>
-import MovieService from '../services/MovieService';
-
 export default {
   name: 'Movies',
   data() {
     return {
-      movies: [],
-      ratings: [],
+      movies: [
+        {
+          _id: '3',
+          title: 'Matrix',
+          poster: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg',
+          rated: 'AG',
+          plot: 'Best movie',
+        },
+        {
+          _id: '3',
+          title: 'Matrix',
+          poster: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg',
+          rated: 'AG',
+          plot: 'Best movie',
+        },
+        {
+          _id: '3',
+          title: 'Matrix',
+          poster: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg',
+          rated: 'AG',
+          plot: 'Best movie',
+        },
+        {
+          _id: '3',
+          title: 'Matrix',
+          poster: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg',
+          rated: 'AG',
+          plot: 'Best movie',
+        },
+      ],
+      ratings: ['AO', 'G', 'GP'],
     };
-  },
-  created() {
-    this.getMovies();
-    this.getRatings();
-  },
-  methods: {
-    async getRatings() {
-      this.ratings = await MovieService.getRatings();
-    },
-    async getMovies() {
-      const moviesData = await MovieService.getMovies();
-      this.movies = moviesData.movies;
-      console.log(this.movies);
-    },
   },
 };
 </script>
