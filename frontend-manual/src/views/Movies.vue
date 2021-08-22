@@ -12,12 +12,14 @@
           </div>
         </div>
         <div class="col">
+          <div class="d-flex">
           <select class="form-select">
             <option selected>Select by Rating</option>
             <option v-for="rating in ratings" :key="rating" :value="rating">
               {{ rating }}
             </option>
-          </select>
+          </select> <a class="btn btn-primary ms-4">Filter</a>
+          </div>
         </div>
       </div>
       <!-- form control -->
