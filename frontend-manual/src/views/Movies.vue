@@ -9,7 +9,7 @@
         <div class="col">
           <div class="mb-3">
             <input id="title" class="form-control" placeholder="Search by title">
-          </div>        
+          </div>
         </div>
         <div class="col">
           <select class="form-select">
@@ -17,7 +17,7 @@
             <option v-for="rating in ratings" :key="rating" :value="rating">
               {{ rating }}
             </option>
-          </select>          
+          </select>
         </div>
       </div>
       <!-- form control -->
@@ -47,25 +47,37 @@ export default {
     return {
       movies: [
         {
-          "_id": "3", "title": "Matrix", "poster":"https://v3.vuejs.org/logo.png",
-          "rated": "AG", "plot": "Best movie"
+          _id: '3',
+          title: 'Matrix',
+          poster: 'https://v3.vuejs.org/logo.png',
+          rated: 'AG',
+          plot: 'Best movie',
         },
         {
-          "_id": "3", "title": "Matrix", "poster":"https://v3.vuejs.org/logo.png",
-          "rated": "AG", "plot": "Best movie"
+          _id: '3',
+          title: 'Matrix',
+          poster: 'https://v3.vuejs.org/logo.png',
+          rated: 'AG',
+          plot: 'Best movie',
         },
         {
-          "_id": "3", "title": "Matrix", "poster":"https://v3.vuejs.org/logo.png",
-          "rated": "AG", "plot": "Best movie"
+          _id: '3',
+          title: 'Matrix',
+          poster: 'https://v3.vuejs.org/logo.png',
+          rated: 'AG',
+          plot: 'Best movie',
         },
         {
-          "_id": "3", "title": "Matrix", "poster":"https://v3.vuejs.org/logo.png",
-          "rated": "AG", "plot": "Best movie"
+          _id: '3',
+          title: 'Matrix',
+          poster: 'https://v3.vuejs.org/logo.png',
+          rated: 'AG',
+          plot: 'Best movie',
         },
       ],
-      ratings: [ 'AO', 'G', 'GP']
-    }
-  }
+      ratings: ['AO', 'G', 'GP'],
+    };
+  },
 };
 </script>
 
