@@ -11,8 +11,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" href="#">Home</a>
-            <a class="nav-link active" href="#">List Movies</a>
+            <router-link to="/" class="nav-link active">Home</router-link>
+            <router-link to="/movies" class="nav-link active">Movies</router-link>
             <router-link to="/about" class="nav-link active">About</router-link>
           </div>
         </div>
