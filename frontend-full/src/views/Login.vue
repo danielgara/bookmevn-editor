@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import store from '../store';
-
 export default {
   name: 'Login',
   data() {
@@ -42,7 +40,7 @@ export default {
   },
   methods: {
     login() {
-      store.commit('connect', { id: this.userId, name: this.userName });
+      this.$store.commit('connect', { id: this.userId, name: this.userName });
       this.$router.push({ path: '/' });
     },
   },

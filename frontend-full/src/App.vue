@@ -62,21 +62,19 @@
 </style>
 
 <script>
-import store from './store';
-
 export default {
   name: 'App',
   computed: {
     userData() {
-      if (store.state.user.id) {
-        return `${store.state.user.id} - ${store.state.user.name}`;
+      if (this.$store.state.user.id) {
+        return `${this.$store.state.user.id} - ${this.$store.state.user.name}`;
       }
       return '';
     },
   },
   methods: {
     logout() {
-      store.commit('disconnect');
+      this.$store.commit('disconnect');
     },
   },
 };
