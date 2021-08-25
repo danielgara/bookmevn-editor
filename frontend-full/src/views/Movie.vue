@@ -11,7 +11,12 @@
         <div class="col">
           <p class="card-text">{{ movie.plot }}</p>
           <div>
-            <a class="btn btn-primary"> Add Reviews </a>
+            <!-- <a class="btn btn-primary"> Add Reviews </a> -->
+            <AddReview
+              v-if="$store.state.user.id"
+              :movieId="movie._id"
+              @update-movie-info="getMovie"
+            />
           </div>
 
           <hr />
@@ -22,8 +27,12 @@
               <h5 class="card-title">Review by {{ review.name }}</h5>
               <h6 class="card-subtitle mb-2 text-muted">{{ getFormattedDate(review.date) }}</h6>
               <p class="card-text">{{ review.review }}</p>
-              <a href="#" class="btn btn-primary me-2">Edit</a>
-              <a href="#" class="btn btn-primary">Delete</a>
+              <a v-if="verifyAuthorship(review.user_id)"
+                 v-on:click="deleteReview(review._id)"
+                 class="btn btn-danger"
+              >
+                Delete
+              </a>
             </li>
           </ul>
         </div>
@@ -35,9 +44,14 @@
 <script>
 import * as moment from 'moment';
 import MovieService from '../services/MovieService';
+import AddReview from '../components/AddReview.vue';
+import ReviewService from '../services/ReviewService';
 
 export default {
   name: 'Movies',
+  components: {
+    AddReview,
+  },
   data() {
     return {
       movie: {
@@ -60,6 +74,20 @@ export default {
     },
     getFormattedDate(date) {
       return moment(date).format('Do MMMM YYYY');
+    },
+    verifyAuthorship(reviewUserId) {
+      if (this.$store.state.user.id && this.$store.state.user.id === reviewUserId) {
+        return true;
+      }
+      return false;
+    },
+    async deleteReview(reviewId) {
+      const data = {
+        user_id: this.$store.state.user.id,
+        review_id: reviewId,
+      };
+      await ReviewService.deleteReview(data);
+      this.getMovie();
     },
   },
 };
