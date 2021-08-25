@@ -33,9 +33,7 @@
               <h5 class="card-title fw-bold">{{ movie.title }}</h5>
               <p v-if="movie.rated" class="card-text">Rating: {{ movie.rated }}</p>
               <p class="card-text">{{ movie.plot }}</p>
-              <router-link :to="'/movie/'+movie._id" class="btn btn-primary">
-                View Reviews
-              </router-link>
+              <a class="btn btn-primary">View Reviews</a>
             </div>
           </div>
         </div>
