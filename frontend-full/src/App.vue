@@ -14,7 +14,10 @@
             <router-link to="/" class="nav-link active">Home</router-link>
             <router-link to="/movies" class="nav-link active">Movies</router-link>
             <router-link to="/about" class="nav-link active">About</router-link>
-            <router-link to="/login" class="nav-link active">Login</router-link>
+            <router-link v-if="!userData" to="/login" class="nav-link active">Login</router-link>
+            <a v-if="userData" v-on:click="logout()" class="nav-link active">
+              Logout ({{ userData }})
+            </a>
           </div>
         </div>
       </div>
@@ -57,3 +60,24 @@
   color: #42b983;
 }
 </style>
+
+<script>
+import store from './store';
+
+export default {
+  name: 'App',
+  computed: {
+    userData() {
+      if (store.state.user.id) {
+        return `${store.state.user.id} - ${store.state.user.name}`;
+      }
+      return '';
+    },
+  },
+  methods: {
+    logout() {
+      store.commit('disconnect');
+    },
+  },
+};
+</script>
