@@ -20,7 +20,7 @@
           <ul class="list-group">
             <li class="list-group-item pb-3 pt-3" v-for="review in movie.reviews" :key="review._id">
               <h5 class="card-title">Review by {{ review.name }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{ review.date }}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">{{ getFormattedDate(review.date) }}</h6>
               <p class="card-text">{{ review.review }}</p>
               <a href="#" class="btn btn-primary me-2">Edit</a>
               <a href="#" class="btn btn-primary">Delete</a>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import * as moment from 'moment';
 import MovieService from '../services/MovieService';
 
 export default {
@@ -56,6 +57,9 @@ export default {
     async getMovie() {
       const movieData = await MovieService.getMovie(this.$route.params.id);
       this.movie = movieData;
+    },
+    getFormattedDate(date) {
+      return moment(date).format('Do MMMM YYYY');
     },
   },
 };
