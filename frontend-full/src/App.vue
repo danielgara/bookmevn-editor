@@ -15,7 +15,7 @@
             <router-link to="/movies" class="nav-link active">Movies</router-link>
             <router-link to="/about" class="nav-link active">About</router-link>
             <router-link v-if="!userData" to="/login" class="nav-link active">Login</router-link>
-            <a v-if="userData" v-on:click="logout()" class="nav-link active">
+            <a v-if="userData" v-on:click="logout()" class="nav-link active pointer">
               Logout ({{ userData }})
             </a>
           </div>
@@ -58,6 +58,10 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.pointer{
+  cursor:pointer;
 }
 </style>
 
