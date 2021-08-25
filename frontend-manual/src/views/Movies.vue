@@ -5,20 +5,21 @@
     </div>
     <div class="card-body">
       <!-- form control -->
-      <div class="row">
+      <div class="row mb-3">
         <div class="col">
-          <div class="mb-3">
-            <input id="title" class="form-control" placeholder="Search by title">
+          <div class="d-flex">
+            <input v-model="titleToSearch" id="title" class="form-control" placeholder="Search by title">
+            <a v-on:click="filterMovies('title')" class="btn btn-primary ms-4">Search</a>
           </div>
         </div>
         <div class="col">
           <div class="d-flex">
-          <select class="form-select">
-            <option selected>Select by Rating</option>
+          <select v-model="ratingToSearch" class="form-select">
+            <option disabled selected value="">Select by Rating</option>
             <option v-for="rating in ratings" :key="rating" :value="rating">
               {{ rating }}
             </option>
-          </select> <a class="btn btn-primary ms-4">Filter</a>
+          </select> <a v-on:click="filterMovies('rated')" class="btn btn-primary ms-4">Filter</a>
           </div>
         </div>
       </div>
@@ -51,6 +52,10 @@ export default {
     return {
       movies: [],
       ratings: [],
+      filterType: "",
+      titleToSearch: "",
+      ratingToSearch: "",
+      query: ""
     };
   },
   created() {
@@ -64,7 +69,16 @@ export default {
     async getMovies() {
       const moviesData = await MovieService.getMovies();
       this.movies = moviesData.movies;
-      console.log(this.movies);
+    },
+    async filterMovies(type) {
+      this.filterType = type;
+      if(this.filterType == "title"){
+        this.query = this.titleToSearch;
+      }else{
+        this.query = this.ratingToSearch;
+      }
+      const moviesData = await MovieService.getMovies(this.query, this.filterType);
+      this.movies = moviesData.movies;
     },
   },
 };
