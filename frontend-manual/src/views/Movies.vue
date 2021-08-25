@@ -8,7 +8,7 @@
       <div class="row mb-3">
         <div class="col">
           <div class="d-flex">
-            <input v-model="titleToSearch" id="title" class="form-control" placeholder="Search by title">
+            <input v-model="titleToSearch" class="form-control" placeholder="Search by title">
             <a v-on:click="filterMovies('title')" class="btn btn-primary ms-4">Search</a>
           </div>
         </div>
@@ -52,10 +52,10 @@ export default {
     return {
       movies: [],
       ratings: [],
-      filterType: "",
-      titleToSearch: "",
-      ratingToSearch: "",
-      query: ""
+      filterType: '',
+      titleToSearch: '',
+      ratingToSearch: '',
+      query: '',
     };
   },
   created() {
@@ -72,9 +72,9 @@ export default {
     },
     async filterMovies(type) {
       this.filterType = type;
-      if(this.filterType == "title"){
+      if (this.filterType === 'title') {
         this.query = this.titleToSearch;
-      }else{
+      } else {
         this.query = this.ratingToSearch;
       }
       const moviesData = await MovieService.getMovies(this.query, this.filterType);
