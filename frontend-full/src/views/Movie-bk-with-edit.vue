@@ -11,6 +11,7 @@
         <div class="col">
           <p class="card-text">{{ movie.plot }}</p>
           <div>
+            <!-- <a class="btn btn-primary"> Add Reviews </a> -->
             <AddReview
               v-if="$store.state.user.id"
               :movieId="movie._id"
@@ -25,19 +26,20 @@
             <li class="list-group-item pb-3 pt-3" v-for="review in movie.reviews" :key="review._id">
               <h5 class="card-title">Review by {{ review.name }}</h5>
               <h6 class="card-subtitle mb-2 text-muted">{{ getFormattedDate(review.date) }}</h6>
-              <p v-if="!review.editing" class="card-text">{{ review.review }}</p>
-              <p v-if="review.editing" class="card-text">
-                <input v-model="newReviewMessage" type="text" class="form-control" />
+              <p :id="'reviewOldMessage-'+review._id" class="card-text">{{ review.review }}</p>
+              <p :id="'reviewP-'+review._id" class="card-text">
+                <input :id="'reviewNewMessage-'+review._id"
+                  type="text" class="form-control" :value="review.review" />
               </p>
-              <a v-if="verifyAuthorship(review.user_id)"
-                v-on:click="editReview(review)"
-                class="btn btn-primary me-3"
+              <a :id="'reviewButton-'+review._id" v-if="verifyAuthorship(review.user_id)"
+                 v-on:click="editReview(review._id)"
+                 class="btn btn-primary me-3"
               >
                 Edit
               </a>
               <a v-if="verifyAuthorship(review.user_id)"
-                v-on:click="deleteReview(review._id)"
-                class="btn btn-danger"
+                 v-on:click="deleteReview(review._id)"
+                 class="btn btn-danger"
               >
                 Delete
               </a>
@@ -70,7 +72,7 @@ export default {
         _id: '',
         reviews: [],
       },
-      newReviewMessage: '',
+      editionMode: false,
     };
   },
   created() {
@@ -79,8 +81,6 @@ export default {
   methods: {
     async getMovie() {
       const movieData = await MovieService.getMovie(this.$route.params.id);
-      const modifiedReviews = movieData.reviews.map((v) => ({ ...v, editing: false }));
-      movieData.reviews = modifiedReviews;
       this.movie = movieData;
     },
     getFormattedDate(date) {
@@ -100,25 +100,22 @@ export default {
       await ReviewService.deleteReview(data);
       this.getMovie();
     },
-    editReview(review) {
-      if (review.editing) {
-        review.review = this.newReviewMessage;
-        this.saveUpdatedReview(review);
-        review.editing = false;
+    editReview(reviewId) {
+      if (!this.editionMode) {
+        document.getElementById(`reviewButton-${reviewId}`).innerHTML = 'Save';
+        document.getElementById(`reviewOldMessage-${reviewId}`).style.display = 'none';
+        document.getElementById(`reviewP-${reviewId}`).style.display = '';
+        this.editionMode = true;
       } else {
-        this.newReviewMessage = review.review;
-        review.editing = true;
+        const newVal = document.getElementById(`reviewNewMessage-${reviewId}`).value;
+        const oldVal = document.getElementById(`reviewOldMessage-${reviewId}`);
+        oldVal.style.display = '';
+        oldVal.innerHTML = newVal;
+
+        document.getElementById(`reviewP-${reviewId}`).style.display = 'none';
+        document.getElementById(`reviewButton-${reviewId}`).innerHTML = 'Edit';
+        this.editionMode = false;
       }
-    },
-    async saveUpdatedReview(newReview) {
-      const data = {
-        review: newReview.review,
-        name: newReview.name,
-        user_id: newReview.user_id,
-        movie_id: newReview.movie_id,
-        review_id: newReview._id,
-      };
-      await ReviewService.updateReview(data);
     },
   },
 };

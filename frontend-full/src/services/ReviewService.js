@@ -10,4 +10,9 @@ export default class ReviewService {
     const res = await axios.delete('http://localhost:8000/api/v1/movies/review', { data });
     return res;
   }
+
+  static async updateReview(data) {
+    const res = await axios.put('http://localhost:8000/api/v1/movies/review', data);
+    return res;
+  }
 }

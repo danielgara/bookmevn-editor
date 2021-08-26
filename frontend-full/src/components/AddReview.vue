@@ -33,7 +33,6 @@ export default {
         name: this.$store.state.user.name,
         user_id: this.$store.state.user.id,
         movie_id: this.movieId,
-        review_id: '',
       };
       await ReviewService.createReview(data);
       this.message = '';
